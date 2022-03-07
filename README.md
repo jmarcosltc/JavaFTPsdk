@@ -1,6 +1,6 @@
 # JavaFTPsdk
 
-                                                  -*- Ainda em fase de teste -*-
+                                    -*- Ainda em fase de teste -*-
 
 Construtor:
 É preciso inicializar o construtor com o nome do domínio, usuário e a senha.
