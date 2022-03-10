@@ -23,6 +23,7 @@
 
 import java.io.*;
 
+import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 
@@ -52,7 +53,12 @@ public class ClienteFTP {
         ftp.connect(dominio);
         ftp.login(usuario, senha);
 
+        ftp.setFileType(FTP.BINARY_FILE_TYPE, FTP.BINARY_FILE_TYPE);
+        ftp.setFileTransferMode(FTP.BINARY_FILE_TYPE);
+
         FileInputStream arqUpload = new FileInputStream(uploadFtp);
+
+        ftp.changeWorkingDirectory(dirFtp);
 
         if (ftp.storeFile(destino, arqUpload)) {
             System.out.printf("Arquivo enviado com sucesso!");
@@ -79,16 +85,18 @@ public class ClienteFTP {
 
         FTPFile[] dirs = ftp.listDirectories(dirFtp);
 
+        ftp.changeWorkingDirectory(dirFtp);
+
         if (adInfo == true) {
             for (FTPFile f : dirs) {
-                System.out.printf(String.valueOf(f));
-                System.out.printf("Nome: " + f.getName());
-                System.out.printf("Tamanho do arquivo: " + f.getSize());
+                System.out.printf(String.valueOf(f) + "\n");
+                System.out.printf("Nome: " + f.getName() + "\n");
+                System.out.printf("Tamanho do arquivo: " + f.getSize() + "\n");
             }
         }
         else {
             for (FTPFile f : dirs) {
-                System.out.printf(String.valueOf(f));
+                System.out.printf(String.valueOf(f) + "\n");
             }
         }
 
